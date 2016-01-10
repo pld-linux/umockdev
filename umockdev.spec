@@ -2,7 +2,7 @@ Summary:	Mock hardware devices for creating unit tests
 Summary(pl.UTF-8):	Imitowanie urządzeń sprzętowych na potrzeby testów jednostkowych
 Name:		umockdev
 Version:	0.8.1
-Release:	1
+Release:	2
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	https://github.com/martinpitt/umockdev/archive/%{version}/%{name}-%{version}.tar.gz
@@ -84,6 +84,9 @@ API języka Vala do biblioteki umockdev.
 Summary:	umockdev API documentation
 Summary(pl.UTF-8):	Dokumentacja API biblioteki umockdev
 Group:		Documentation
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
 
 %description apidocs
 API documentation for umockdev library.
