@@ -2,7 +2,7 @@ Summary:	Mock hardware devices for creating unit tests
 Summary(pl.UTF-8):	Imitowanie urządzeń sprzętowych na potrzeby testów jednostkowych
 Name:		umockdev
 Version:	0.8.1
-Release:	2
+Release:	3
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	https://github.com/martinpitt/umockdev/archive/%{version}/%{name}-%{version}.tar.gz
@@ -37,10 +37,9 @@ integracyjnych dla bibliotek i programów związanych ze sprzętem.
 Dostarcza także narzędzia do nagrywania właściwości i zachowania
 określonych urządzeń oraz uruchamiania programów lub testów w
 środowisku testowym z wczytanymi wcześniej nagranymi danymi
-urządzenia. Pozwala to programistom z projektów takich jak gphoto
-czy libmtp otrzymywać takie nagrania w zgłoszeniach błędów i
-odtwarzać we własnym systemie bez dostępu do sprzętu dotkniętego
-problemem.
+urządzenia. Pozwala to programistom z projektów takich jak gphoto czy
+libmtp otrzymywać takie nagrania w zgłoszeniach błędów i odtwarzać we
+własnym systemie bez dostępu do sprzętu dotkniętego problemem.
 
 %package devel
 Summary:	Header files for umockdev library
@@ -73,6 +72,9 @@ Summary(pl.UTF-8):	API języka Vala do biblioteki umockdev
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	vala >= 2:0.16.1
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
 
 %description -n vala-umockdev
 Vala API for umockdev library.
