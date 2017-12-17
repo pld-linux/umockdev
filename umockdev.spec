@@ -1,14 +1,14 @@
 Summary:	Mock hardware devices for creating unit tests
 Summary(pl.UTF-8):	Imitowanie urządzeń sprzętowych na potrzeby testów jednostkowych
 Name:		umockdev
-Version:	0.9.1
+Version:	0.9.4
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
 # tagged snapshots at https://github.com/martinpitt/umockdev/releases
 # release tarballs at launchpad:
 Source0:	https://launchpad.net/umockdev/trunk/%{version}/+download/%{name}-%{version}.tar.xz
-# Source0-md5:	c2183ae9a03623343d3344dbef259ee8
+# Source0-md5:	3d13cc7acfda11d55b35b97f3de3de20
 URL:		https://github.com/martinpitt/umockdev
 BuildRequires:	autoconf >= 2.64
 BuildRequires:	automake >= 1:1.11
