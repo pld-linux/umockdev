@@ -1,13 +1,13 @@
 Summary:	Mock hardware devices for creating unit tests
 Summary(pl.UTF-8):	Imitowanie urządzeń sprzętowych na potrzeby testów jednostkowych
 Name:		umockdev
-Version:	0.12
+Version:	0.14.1
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
 #Source0Download: https://github.com/martinpitt/umockdev/releases
 Source0:	https://github.com/martinpitt/umockdev/releases/download/%{version}/%{name}-%{version}.tar.xz
-# Source0-md5:	fd2b550bad6264cf64dada8bb2d6a61f
+# Source0-md5:	6c8c200017986aba95e8ee756ccef88a
 URL:		https://github.com/martinpitt/umockdev
 BuildRequires:	autoconf >= 2.64
 BuildRequires:	automake >= 1:1.11
@@ -16,7 +16,7 @@ BuildRequires:	gnome-common
 BuildRequires:	gobject-introspection-devel >= 1.32
 BuildRequires:	gtk-doc >= 1.14
 BuildRequires:	libtool >= 2:2.2
-BuildRequires:	python >= 2
+BuildRequires:	python3 >= 1:3
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	udev-devel
 BuildRequires:	udev-glib-devel
@@ -76,7 +76,7 @@ Summary(pl.UTF-8):	API języka Vala do biblioteki umockdev
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	vala >= 2:0.16.1
-%if "%{_rpmversion}" >= "5"
+%if "%{_rpmversion}" >= "4.6"
 BuildArch:	noarch
 %endif
 
@@ -90,7 +90,7 @@ API języka Vala do biblioteki umockdev.
 Summary:	umockdev API documentation
 Summary(pl.UTF-8):	Dokumentacja API biblioteki umockdev
 Group:		Documentation
-%if "%{_rpmversion}" >= "5"
+%if "%{_rpmversion}" >= "4.6"
 BuildArch:	noarch
 %endif
 
