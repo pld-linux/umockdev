@@ -76,9 +76,7 @@ Summary(pl.UTF-8):	API języka Vala do biblioteki umockdev
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	vala >= 2:0.16.1
-%if "%{_rpmversion}" >= "4.6"
 BuildArch:	noarch
-%endif
 
 %description -n vala-umockdev
 Vala API for umockdev library.
@@ -90,9 +88,7 @@ API języka Vala do biblioteki umockdev.
 Summary:	umockdev API documentation
 Summary(pl.UTF-8):	Dokumentacja API biblioteki umockdev
 Group:		Documentation
-%if "%{_rpmversion}" >= "4.6"
 BuildArch:	noarch
-%endif
 
 %description apidocs
 API documentation for umockdev library.
