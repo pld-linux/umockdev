@@ -1,22 +1,20 @@
 Summary:	Mock hardware devices for creating unit tests
 Summary(pl.UTF-8):	Imitowanie urządzeń sprzętowych na potrzeby testów jednostkowych
 Name:		umockdev
-Version:	0.14.5
+Version:	0.15.4
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
 #Source0Download: https://github.com/martinpitt/umockdev/releases
 Source0:	https://github.com/martinpitt/umockdev/releases/download/%{version}/%{name}-%{version}.tar.xz
-# Source0-md5:	c06d23f24c065f7d1ba9e511ea97f0a8
+# Source0-md5:	e6c06e56873ee7d5fbb9e3efa758edaf
 URL:		https://github.com/martinpitt/umockdev
-BuildRequires:	autoconf >= 2.64
-BuildRequires:	automake >= 1:1.11
 BuildRequires:	glib2-devel >= 1:2.32.0
-BuildRequires:	gnome-common
 BuildRequires:	gobject-introspection-devel >= 1.32
 BuildRequires:	gtk-doc >= 1.14
 BuildRequires:	libgudev-devel >= 232
-BuildRequires:	libtool >= 2:2.2
+BuildRequires:	meson
+BuildRequires:	ninja >= 1.5
 BuildRequires:	python3 >= 1:3
 BuildRequires:	rpm-build >= 4.6
 BuildRequires:	tar >= 1:1.22
@@ -52,24 +50,13 @@ Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki umockdev
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	glib2-devel >= 1:2.32.0
+Obsoletes:	umockdev-static < 0.15
 
 %description devel
 Header files for umockdev library.
 
 %description devel -l pl.UTF-8
 Pliki nagłówkowe biblioteki umockdev.
-
-%package static
-Summary:	Static umockdev library
-Summary(pl.UTF-8):	Statyczna biblioteka umockdev
-Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
-
-%description static
-Static umockdev library.
-
-%description static -l pl.UTF-8
-Statyczna biblioteka umockdev.
 
 %package -n vala-umockdev
 Summary:	Vala API for umockdev library
@@ -101,29 +88,15 @@ Dokumentacja API biblioteki umockdev.
 %setup -q
 
 %build
-%{__libtoolize}
-%{__gtkdocize} --docdir docs
-%{__aclocal} -I m4
-%{__autoconf}
-%{__autoheader}
-%{__automake}
-%configure \
-	PYTHON=/usr/bin/python \
-	--enable-gtk-doc \
-	--disable-silent-rules \
-	--with-html-dir=%{_gtkdocdir}
-%{__make}
+%meson build \
+	-Dgtk_doc=true
+
+%ninja_build -C build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
-
-# obsoleted by pkg-config
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
-# packaged as %doc
-%{__rm} -r $RPM_BUILD_ROOT%{_docdir}/umockdev
+%ninja_install -C build
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -146,13 +119,10 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libumockdev.so
+%attr(755,root,root) %{_libdir}/libumockdev-preload.so
 %{_datadir}/gir-1.0/UMockdev-1.0.gir
 %{_includedir}/umockdev-1.0
 %{_pkgconfigdir}/umockdev-1.0.pc
-
-%files static
-%defattr(644,root,root,755)
-%{_libdir}/libumockdev.a
 
 %files -n vala-umockdev
 %defattr(644,root,root,755)
