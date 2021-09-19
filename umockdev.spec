@@ -1,17 +1,22 @@
+#
+# Conditional build:
+%bcond_without	apidocs	# gtk-doc API documentation
+
 Summary:	Mock hardware devices for creating unit tests
 Summary(pl.UTF-8):	Imitowanie urządzeń sprzętowych na potrzeby testów jednostkowych
 Name:		umockdev
-Version:	0.15.5
+Version:	0.16.3
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
 #Source0Download: https://github.com/martinpitt/umockdev/releases
 Source0:	https://github.com/martinpitt/umockdev/releases/download/%{version}/%{name}-%{version}.tar.xz
-# Source0-md5:	d614799753d49ed5eff45e6eabcf0e10
+# Source0-md5:	76506eb290670e6bcdb58fa2a08e2944
 URL:		https://github.com/martinpitt/umockdev
 BuildRequires:	glib2-devel >= 1:2.32.0
 BuildRequires:	gobject-introspection-devel >= 1.32
-BuildRequires:	gtk-doc >= 1.14
+%{?with_apidocs:BuildRequires:	gtk-doc >= 1.14}
+BuildRequires:	libpcap-devel
 BuildRequires:	libgudev-devel >= 232
 BuildRequires:	meson
 BuildRequires:	ninja >= 1.5
@@ -89,7 +94,7 @@ Dokumentacja API biblioteki umockdev.
 
 %build
 %meson build \
-	-Dgtk_doc=true
+	%{?with_apidocs:-Dgtk_doc=true}
 
 %ninja_build -C build
 
@@ -106,7 +111,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc NEWS README.rst docs/script-format.txt
+%doc NEWS README.md docs/script-format.txt
 %attr(755,root,root) %{_bindir}/umockdev-record
 %attr(755,root,root) %{_bindir}/umockdev-run
 %attr(755,root,root) %{_bindir}/umockdev-wrapper
@@ -128,6 +133,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_datadir}/vala/vapi/umockdev-1.0.vapi
 
+%if %{with apidocs}
 %files apidocs
 %defattr(644,root,root,755)
 %{_gtkdocdir}/umockdev
+%endif
